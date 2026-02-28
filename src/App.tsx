@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from "motion/react";
 import {
   FileSpreadsheet,
   Cloud,
@@ -40,9 +40,6 @@ export default function App() {
 
   return (
     <div className="h-screen w-screen bg-black font-sans selection:bg-[#D5B6F6]/30 overflow-hidden flex flex-col relative">
-      {/* Subtle background glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#D5B6F6]/[0.05] blur-[120px] rounded-full pointer-events-none" />
-
       <div className="flex-grow relative w-full h-full">
         <AnimatePresence mode="wait">
           {currentSlide === 0 && <ProblemSlide key="problem" />}
@@ -88,30 +85,30 @@ export default function App() {
   );
 }
 
-function ProblemSlide() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.98 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.98 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute inset-0 p-8 sm:p-12 lg:p-20 flex flex-col justify-center max-w-7xl mx-auto w-full h-full"
-    >
-      <div className="mb-16 relative z-10 text-center">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-6">
-          The Problem
-        </h1>
-        <p className="text-2xl text-zinc-400 max-w-3xl mx-auto">
-          Traders are flying blind with disconnected tools, sacrificing privacy,
-          and losing money to behavioral leaks.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 relative z-10 flex-grow max-h-[500px]">
-        {/* Fragmented Logging */}
-        <div className="bg-[#0a0a0a]/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
-          <div className="bg-white/5 w-14 h-14 rounded-2xl flex items-center justify-center mb-8 border border-white/5">
-            <Database className="w-7 h-7 text-[#D5B6F6]" />
+  function ProblemSlide() {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.98 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute inset-0 px-6 sm:px-10 lg:px-14 py-8 flex flex-col justify-center max-w-[1500px] mx-auto w-full h-full"
+      >
+        <div className="mb-16 relative z-10 text-left">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-6">
+            The Problem
+          </h1>
+          <p className="text-2xl text-zinc-400 max-w-3xl">
+            Traders are flying blind with disconnected tools, sacrificing privacy,
+            and losing money to behavioral leaks.
+          </p>
+        </div>
+  
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 relative z-10 flex-grow max-h-[500px]">
+          {/* Fragmented Logging */}
+          <CardSpotlight className="p-8">
+          <div className="mb-8">
+            <Database className="w-7 h-7 text-zinc-400" />
           </div>
           <h2 className="text-2xl font-semibold text-white mb-6">
             Fragmented Logging
@@ -145,13 +142,12 @@ function ProblemSlide() {
               </span>
             </li>
           </ul>
-        </div>
-
+        </CardSpotlight>
+  
         {/* Privacy Risk */}
-        <div className="bg-[#D5B6F6]/[0.02] border border-[#D5B6F6]/20 rounded-3xl p-8 backdrop-blur-xl flex flex-col relative overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#D5B6F6]/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2" />
-          <div className="bg-[#D5B6F6]/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-8 border border-[#D5B6F6]/20 relative z-10">
-            <ShieldAlert className="w-7 h-7 text-[#D5B6F6]" />
+        <CardSpotlight className="p-8">
+          <div className="mb-8 relative z-10">
+            <ShieldAlert className="w-7 h-7 text-zinc-400" />
           </div>
           <h2 className="text-2xl font-semibold text-white mb-6 relative z-10">
             Privacy Risk
@@ -184,12 +180,12 @@ function ProblemSlide() {
               </span>
             </li>
           </ul>
-        </div>
-
+        </CardSpotlight>
+  
         {/* Manual Reconstruction */}
-        <div className="bg-[#0a0a0a]/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
-          <div className="bg-white/5 w-14 h-14 rounded-2xl flex items-center justify-center mb-8 border border-white/5">
-            <BrainCircuit className="w-7 h-7 text-zinc-300" />
+        <CardSpotlight className="p-8">
+          <div className="mb-8">
+            <BrainCircuit className="w-7 h-7 text-zinc-400" />
           </div>
           <h2 className="text-2xl font-semibold text-white mb-6">
             Zero Behavioral Context
@@ -220,7 +216,7 @@ function ProblemSlide() {
               </span>
             </li>
           </ul>
-        </div>
+        </CardSpotlight>
       </div>
     </motion.div>
   );
@@ -252,8 +248,8 @@ function SolutionSlide() {
 
           <div className="space-y-12">
             <div className="flex gap-6">
-              <div className="mt-1 shrink-0 bg-white/5 p-3 rounded-2xl border border-white/5 h-fit">
-                <ArrowRight className="w-6 h-6 text-[#D5B6F6]" />
+              <div className="mt-1 shrink-0">
+                <ArrowRight className="w-6 h-6 text-zinc-400" />
               </div>
               <div>
                 <h3 className="text-2xl font-semibold text-white mb-3">
@@ -269,10 +265,10 @@ function SolutionSlide() {
                 </p>
               </div>
             </div>
-
+  
             <div className="flex gap-6">
-              <div className="mt-1 shrink-0 bg-white/5 p-3 rounded-2xl border border-white/5 h-fit">
-                <ArrowRight className="w-6 h-6 text-[#D5B6F6]" />
+              <div className="mt-1 shrink-0">
+                <ArrowRight className="w-6 h-6 text-zinc-400" />
               </div>
               <div>
                 <h3 className="text-2xl font-semibold text-white mb-3">
@@ -287,10 +283,10 @@ function SolutionSlide() {
                 </p>
               </div>
             </div>
-
+  
             <div className="flex gap-6">
-              <div className="mt-1 shrink-0 bg-white/5 p-3 rounded-2xl border border-white/5 h-fit">
-                <ArrowRight className="w-6 h-6 text-[#D5B6F6]" />
+              <div className="mt-1 shrink-0">
+                <ArrowRight className="w-6 h-6 text-zinc-400" />
               </div>
               <div>
                 <h3 className="text-2xl font-semibold text-white mb-3">
@@ -311,8 +307,6 @@ function SolutionSlide() {
 
         {/* Right: The App Visual (Image) */}
         <div className="lg:w-[400px] flex items-center justify-center relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[600px] bg-[#D5B6F6]/15 blur-[100px] rounded-full pointer-events-none" />
-
           <div className="w-[320px] rounded-[3rem] overflow-hidden shadow-[0_0_40px_rgba(213,182,246,0.15)] border border-[#D5B6F6]/30 relative z-10 bg-[#0a0a0a] aspect-[1/2.16] flex items-center justify-center p-2">
             <div className="w-full h-full rounded-[2.5rem] overflow-hidden relative bg-[#111]">
               <img
@@ -347,21 +341,19 @@ function MarketSlide() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="absolute inset-0 p-8 sm:p-12 lg:p-20 flex flex-col justify-center max-w-7xl mx-auto w-full h-full"
     >
-      <div className="mb-14 relative z-10 text-center">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-6">
-          Market Size & Projections
-        </h1>
-        <p className="text-2xl text-zinc-400 max-w-3xl mx-auto">
-          A <strong className="text-white">$27B</strong> market with zero privacy-native competitors and accelerating distrust of cloud platforms.
-        </p>
-      </div>
+      <div className="mb-14 relative z-10 text-left">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-6">
+            Market Size & Projections
+          </h1>
+          <p className="text-2xl text-zinc-400 max-w-3xl">
+            A <strong className="text-white">$27B</strong> market with zero privacy-native competitors and accelerating distrust of cloud platforms.
+          </p>
+        </div>
 
       <div className="flex-grow flex flex-col lg:flex-row items-center justify-center gap-16 lg:gap-24 relative z-10 pb-8">
         
         {/* Left: Concentric Circles Visual */}
         <div className="flex-1 w-full max-w-[400px] flex flex-col items-center justify-center relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-[#D5B6F6]/5 blur-[100px] rounded-full pointer-events-none" />
-          
           <div className="relative w-full aspect-square max-w-[420px] flex flex-col justify-end items-center">
             
             {/* TAM */}
@@ -393,11 +385,9 @@ function MarketSlide() {
 
         {/* Right: The Data & Projections */}
         <div className="flex-1 flex flex-col gap-6 w-full max-w-xl">
-          <div className="bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl shadow-black/50">
+          <CardSpotlight className="p-8 rounded-3xl shadow-2xl shadow-black/50">
             <div className="flex items-center gap-4 mb-8">
-              <div className="bg-white/5 p-2 rounded-xl border border-white/5">
-                <Target className="w-6 h-6 text-[#D5B6F6]" />
-              </div>
+              <Target className="w-6 h-6 text-zinc-400" />
               <h3 className="text-white font-semibold text-2xl tracking-tight">Revenue Projections</h3>
             </div>
             
@@ -440,7 +430,7 @@ function MarketSlide() {
                 </div>
               </div>
             </div>
-          </div>
+          </CardSpotlight>
         </div>
       </div>
     </motion.div>
@@ -457,51 +447,50 @@ function TailwindsSlide() {
       className="absolute inset-0 p-8 sm:p-12 lg:p-20 flex flex-col justify-center max-w-7xl mx-auto w-full h-full"
     >
       {/* Title */}
-      <div className="mb-16 relative z-10 text-center">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-6">
-          Why Now
-        </h1>
-        <p className="text-2xl text-zinc-400 max-w-3xl mx-auto">
-          The convergence of privacy demands and on-device neural engines makes <strong className="text-white">Wick</strong> the inevitable next step in trading infrastructure.
-        </p>
-      </div>
-
-      {/* 3 Columns */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 relative z-10 flex-grow max-h-[400px]">
-        
-        {/* Column 1 */}
-        <div className="bg-[#0a0a0a]/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
-          <div className="bg-white/5 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-white/5">
-            <HardDrive className="w-7 h-7 text-[#D5B6F6]" />
+        <div className="mb-16 relative z-10 text-left">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-6">
+            Why Now
+          </h1>
+          <p className="text-2xl text-zinc-400 max-w-3xl">
+            The convergence of privacy demands and on-device neural engines makes <strong className="text-white">Wick</strong> the inevitable next step in trading infrastructure.
+          </p>
+        </div>
+  
+        {/* 3 Columns */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-10 relative z-10 flex-grow max-h-[400px]">
+          
+          {/* Column 1 */}
+          <CardSpotlight className="p-8">
+          <div className="mb-6">
+            <HardDrive className="w-7 h-7 text-zinc-400" />
           </div>
           <h3 className="text-2xl font-semibold text-white mb-4">The Privacy Breaking Point</h3>
           <p className="text-zinc-400 text-lg leading-relaxed">
             Traders are realizing their cloud-synced journals expose proprietary alpha to third parties. <strong className="text-white font-medium">Data sovereignty</strong> is no longer a feature—it's a strict requirement.
           </p>
-        </div>
-
+        </CardSpotlight>
+  
         {/* Column 2 */}
-        <div className="bg-[#0a0a0a]/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-[#D5B6F6]/10 blur-[80px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2" />
-          <div className="bg-[#D5B6F6]/10 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-[#D5B6F6]/20 relative z-10">
-            <Cpu className="w-7 h-7 text-[#D5B6F6]" />
+        <CardSpotlight className="p-8">
+          <div className="mb-6 relative z-10">
+            <Cpu className="w-7 h-7 text-zinc-400" />
           </div>
           <h3 className="text-2xl font-semibold text-white mb-4 relative z-10">Edge Compute is Ready</h3>
           <p className="text-zinc-400 text-lg leading-relaxed relative z-10">
             For the first time, mobile devices have the neural engines required to run complex behavioral AI locally. <strong className="text-white font-medium">Zero cloud latency, zero server costs.</strong>
           </p>
-        </div>
-
+        </CardSpotlight>
+  
         {/* Column 3 */}
-        <div className="bg-[#0a0a0a]/50 border border-white/10 rounded-3xl p-8 backdrop-blur-xl flex flex-col shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]">
-          <div className="bg-white/5 w-14 h-14 rounded-2xl flex items-center justify-center mb-6 border border-white/5">
-            <TrendingUp className="w-7 h-7 text-zinc-300" />
+        <CardSpotlight className="p-8">
+          <div className="mb-6">
+            <TrendingUp className="w-7 h-7 text-zinc-400" />
           </div>
           <h3 className="text-2xl font-semibold text-white mb-4">Retail Institutionalization</h3>
           <p className="text-zinc-400 text-lg leading-relaxed">
             Retail traders are treating trading like a business. They demand <strong className="text-white font-medium">institutional-grade analytics</strong> but refuse the clunky, desktop-era UX of legacy tools.
           </p>
-        </div>
+        </CardSpotlight>
 
       </div>
     </motion.div>
@@ -517,17 +506,17 @@ function CompetitiveSlide() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="absolute inset-0 p-8 sm:p-12 lg:p-20 flex flex-col justify-center max-w-7xl mx-auto w-full h-full"
     >
-      <div className="mb-14 relative z-10 text-center">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-6">
-          Competitive Landscape
-        </h1>
-        <p className="text-2xl text-zinc-400 max-w-3xl mx-auto">
-          The only trading journal that treats a trader's history as <strong className="text-white">proprietary IP</strong> rather than a product to be harvested.
-        </p>
-      </div>
+      <div className="mb-14 relative z-10 text-left">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-6">
+            Competitive Landscape
+          </h1>
+          <p className="text-2xl text-zinc-400 max-w-3xl">
+            The only trading journal that treats a trader's history as <strong className="text-white">proprietary IP</strong> rather than a product to be harvested.
+          </p>
+        </div>
 
       <div className="flex-grow flex flex-col justify-center relative z-10 w-full max-w-6xl mx-auto">
-        <div className="w-full bg-[#0a0a0a]/80 backdrop-blur-xl border border-white/10 rounded-[2rem] shadow-2xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+        <CardSpotlight className="w-full rounded-[2rem] overflow-hidden">
           <div className="min-w-[800px] flex flex-col">
             {/* Table Header */}
             <div className="grid grid-cols-4 gap-4 px-8 py-6 border-b border-white/10 bg-white/5">
@@ -544,9 +533,9 @@ function CompetitiveSlide() {
               {/* Row 1 */}
               <div className="grid grid-cols-4 gap-4 items-center px-8 py-6 hover:bg-white/[0.02] transition-colors relative group">
                 <div className="absolute left-1/4 top-0 bottom-0 w-[25%] bg-[#D5B6F6]/5 -z-10 group-hover:bg-[#D5B6F6]/10 transition-colors" />
-                <div className="flex items-center gap-4 text-[#D5B6F6]">
-                  <div className="bg-[#D5B6F6]/10 p-2 rounded-lg border border-[#D5B6F6]/20"><HardDrive className="w-5 h-5" /></div>
-                  <span className="font-semibold text-lg">Data Ownership</span>
+                <div className="flex items-center gap-4">
+                  <HardDrive className="w-5 h-5 text-zinc-400" />
+                  <span className="font-semibold text-lg text-[#D5B6F6]">Data Ownership</span>
                 </div>
                 <div className="text-white font-semibold text-lg">100% Local-First</div>
                 <div className="text-zinc-400 text-lg">Cloud-Stored</div>
@@ -556,9 +545,9 @@ function CompetitiveSlide() {
               {/* Row 2 */}
               <div className="grid grid-cols-4 gap-4 items-center px-8 py-6 hover:bg-white/[0.02] transition-colors relative group">
                 <div className="absolute left-1/4 top-0 bottom-0 w-[25%] bg-[#D5B6F6]/5 -z-10 group-hover:bg-[#D5B6F6]/10 transition-colors" />
-                <div className="flex items-center gap-4 text-[#D5B6F6]">
-                  <div className="bg-[#D5B6F6]/10 p-2 rounded-lg border border-[#D5B6F6]/20"><Zap className="w-5 h-5" /></div>
-                  <span className="font-semibold text-lg">Logging Speed</span>
+                <div className="flex items-center gap-4">
+                  <Zap className="w-5 h-5 text-zinc-400" />
+                  <span className="font-semibold text-lg text-[#D5B6F6]">Logging Speed</span>
                 </div>
                 <div className="text-white font-semibold text-lg">Sub-5-Tap (In-Trade)</div>
                 <div className="text-zinc-400 text-lg">Post-Session Manual</div>
@@ -568,9 +557,9 @@ function CompetitiveSlide() {
               {/* Row 3 */}
               <div className="grid grid-cols-4 gap-4 items-center px-8 py-6 hover:bg-white/[0.02] transition-colors relative group">
                 <div className="absolute left-1/4 top-0 bottom-0 w-[25%] bg-[#D5B6F6]/5 -z-10 group-hover:bg-[#D5B6F6]/10 transition-colors" />
-                <div className="flex items-center gap-4 text-[#D5B6F6]">
-                  <div className="bg-[#D5B6F6]/10 p-2 rounded-lg border border-[#D5B6F6]/20"><ShieldAlert className="w-5 h-5" /></div>
-                  <span className="font-semibold text-lg">Privacy Risk</span>
+                <div className="flex items-center gap-4">
+                  <ShieldAlert className="w-5 h-5 text-zinc-400" />
+                  <span className="font-semibold text-lg text-[#D5B6F6]">Privacy Risk</span>
                 </div>
                 <div className="text-white font-semibold text-lg">Zero (Zero-Server)</div>
                 <div className="text-zinc-400 text-lg">High (FinTech Breaches)</div>
@@ -580,9 +569,9 @@ function CompetitiveSlide() {
               {/* Row 4 */}
               <div className="grid grid-cols-4 gap-4 items-center px-8 py-6 hover:bg-white/[0.02] transition-colors relative group">
                 <div className="absolute left-1/4 top-0 bottom-0 w-[25%] bg-[#D5B6F6]/5 -z-10 group-hover:bg-[#D5B6F6]/10 transition-colors" />
-                <div className="flex items-center gap-4 text-[#D5B6F6]">
-                  <div className="bg-[#D5B6F6]/10 p-2 rounded-lg border border-[#D5B6F6]/20"><BrainCircuit className="w-5 h-5" /></div>
-                  <span className="font-semibold text-lg">Automated Insights</span>
+                <div className="flex items-center gap-4">
+                  <BrainCircuit className="w-5 h-5 text-zinc-400" />
+                  <span className="font-semibold text-lg text-[#D5B6F6]">Automated Insights</span>
                 </div>
                 <div className="text-white font-semibold text-lg">Real-Time (On-Device)</div>
                 <div className="text-zinc-400 text-lg">Retroactive Only</div>
@@ -590,7 +579,7 @@ function CompetitiveSlide() {
               </div>
             </div>
           </div>
-        </div>
+        </CardSpotlight>
       </div>
     </motion.div>
   );
@@ -605,15 +594,6 @@ function CompetitiveMatrixSlide() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="absolute inset-0 p-8 sm:p-12 lg:p-20 flex flex-col justify-center max-w-7xl mx-auto w-full h-full"
     >
-      <div className="mb-14 relative z-10 text-center">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white mb-6">
-          The Market Gap
-        </h1>
-        <p className="text-2xl text-zinc-400 max-w-3xl mx-auto">
-          The industry forces a false choice between <strong className="text-white">simplicity</strong> and <strong className="text-white">data ownership</strong>. Wick delivers both.
-        </p>
-      </div>
-
       <div className="flex-grow flex items-center justify-center relative z-10 w-full max-w-4xl mx-auto pb-12">
         
         {/* Cartesian Plane Container */}
@@ -630,16 +610,15 @@ function CompetitiveMatrixSlide() {
           <div className="absolute top-6 left-1/2 -translate-x-1/2 text-zinc-400 font-semibold text-xs tracking-widest uppercase bg-[#0a0a0a] px-4 py-1 rounded-full border border-white/10">Simplicity</div>
           <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-zinc-600 font-semibold text-xs tracking-widest uppercase bg-[#0a0a0a] px-4 py-1 rounded-full border border-white/5">High Friction</div>
           
-          <div className="absolute left-6 top-1/2 -translate-y-1/2 text-zinc-600 font-semibold text-xs tracking-widest uppercase bg-[#0a0a0a] py-1 px-4 rounded-full border border-white/5 whitespace-nowrap -rotate-90 origin-center -translate-x-1/2">Cloud Dependent</div>
-          <div className="absolute right-6 top-1/2 -translate-y-1/2 text-zinc-400 font-semibold text-xs tracking-widest uppercase bg-[#0a0a0a] py-1 px-4 rounded-full border border-white/10 whitespace-nowrap rotate-90 origin-center translate-x-1/2">Local First</div>
+          <div className="absolute left-6 top-1/2 -translate-y-1/2 text-white font-semibold text-sm tracking-widest uppercase py-1 px-4 whitespace-nowrap z-30">Cloud Dependent</div>
+          <div className="absolute right-6 top-1/2 -translate-y-1/2 text-white font-semibold text-sm tracking-widest uppercase py-1 px-4 whitespace-nowrap z-30">Local First</div>
 
           {/* Data Points */}
           
           {/* Wick */}
           <div className="absolute top-[25%] left-[75%] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-3 group z-20">
-            <div className="absolute -inset-8 bg-[#D5B6F6]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#E8D4FF] to-[#D5B6F6] shadow-[0_0_30px_rgba(213,182,246,0.8)] ring-4 ring-[#D5B6F6]/30 transition-all duration-300 group-hover:scale-110 group-hover:ring-8 relative z-10" />
-            <span className="text-[#D5B6F6] font-bold text-xl drop-shadow-[0_0_10px_rgba(213,182,246,0.5)] relative z-10">Wick</span>
+            <div className="w-8 h-8 rounded-full bg-[#D5B6F6] transition-all duration-300 group-hover:scale-110 relative z-10" />
+            <span className="text-[#D5B6F6] font-bold text-xl relative z-10">Wick</span>
           </div>
 
           {/* TradeZella */}
@@ -669,5 +648,61 @@ function CompetitiveMatrixSlide() {
         </div>
       </div>
     </motion.div>
+  );
+}
+
+export function CardSpotlight({
+  children,
+  radius = 350,
+  color = "rgba(255, 255, 255, 0.05)",
+  className = "",
+  ...props
+}: {
+  radius?: number;
+  color?: string;
+  children: React.ReactNode;
+} & React.HTMLAttributes<HTMLDivElement>) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  function handleMouseMove({
+    currentTarget,
+    clientX,
+    clientY,
+  }: React.MouseEvent<HTMLDivElement>) {
+    let { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  }
+
+  const [isHovering, setIsHovering] = useState(false);
+  const handleMouseEnter = () => setIsHovering(true);
+  const handleMouseLeave = () => setIsHovering(false);
+  
+  return (
+    <div
+      className={`group/spotlight relative overflow-hidden bg-transparent border border-white/10 ${className}`}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      {...props}
+    >
+      <motion.div
+        className="pointer-events-none absolute -inset-px transition-opacity duration-300 z-0"
+        style={{
+          opacity: isHovering ? 1 : 0,
+          background: useMotionTemplate`
+            radial-gradient(
+              ${radius}px circle at ${mouseX}px ${mouseY}px,
+              ${color},
+              transparent 80%
+            )
+          `,
+        }}
+      />
+      <div className="relative z-10 h-full flex flex-col">
+        {children}
+      </div>
+    </div>
   );
 }
