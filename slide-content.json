@@ -1,0 +1,196 @@
+{
+  "slides": [
+    {
+      "slideIndex": 0,
+      "slideId": "cover",
+      "component": "CoverSlide",
+      "title": "wick",
+      "tagline": "A zero-knowledge agentic ledger to interrupt behavioral variance, and enforce systematic execution.",
+      "style": {
+        "background": "#D5B6F6",
+        "textColor": "black",
+        "alignment": "left"
+      }
+    },
+    {
+      "slideIndex": 1,
+      "slideId": "hook-problem",
+      "component": "HookProblemSlide",
+      "title": "The Problem: Traders Are Blind To Their Own Variance",
+      "subtitle": "Retail trading is a $27B market, but the infrastructure is stuck in the past, forcing traders to choose between scattered spreadsheets or sacrificing their data sovereignty.",
+      "sections": [
+        {
+          "icon": "Database",
+          "heading": "Win rate Delta at an all time high",
+          "description": "Across 560M crypto traders worldwide, most track executions in scattered spreadsheets and broker statements—if they track at all. Without a unified system, patterns remain invisible, turning improvement into gambling rather than data-driven strategy."
+        },
+        {
+          "icon": "ShieldAlert",
+          "heading": "Edge Compromise",
+          "description": "100% of incumbent journals (CoinMarketMan, TradeZella) operate on cloud architecture. The $6.08M average cost of FinTech data breaches has created a massive privacy vacuum."
+        },
+        {
+          "icon": "BrainCircuit",
+          "heading": "No modern solutions",
+          "description": "Crypto trader trapped in a behavioural loop they cannot see. Current tools show prices but lack behavioural context, forcing manual analysis of patterns that determine profitability. With zero local-first solutions available, true execution insight remains inaccessible at scale."
+        }
+      ]
+    },
+    {
+      "slideIndex": 2,
+      "slideId": "paradigm-shift",
+      "component": "ParadigmShiftSlide",
+      "title": "Wick: The First Local-First, AI-Native Trading Journal",
+      "subtitle": "We have built a Swift-native powerhouse that replaces scattered spreadsheets and vulnerable cloud journals with a high-performance, private ecosystem designed to turn trading activity into a consistent win rate.",
+      "existingWay": {
+        "heading": "Existing Journals",
+        "points": [
+          "Post-session entry — the behavioral context of the trade is already gone",
+          "Proprietary strategies stored on third-party servers — breach risk is real",
+          "Retroactive analytics with no intelligence layer — tells you what happened, never why you won"
+        ]
+      },
+      "wickWay": {
+        "heading": "The Wick Way",
+        "points": [
+          {
+            "label": "Sovereign Intelligence",
+            "description": "On-device LLMs (Apple Silicon) analyze your edge without data ever hitting our servers."
+          },
+          {
+            "label": "Seamless Ecosystem",
+            "description": "Native iOS/macOS experience with Lock Screen widgets and encrypted iCloud Sync."
+          },
+          {
+            "label": "Behavioral AI",
+            "description": "Our local AI identifies psychological patterns to move you toward systematic execution."
+          },
+          {
+            "label": "Zero-Leak Infra",
+            "description": "Eliminating the cloud-middleman. No web2 vulnerabilities or data breaches—pure performance."
+          }
+        ]
+      }
+    },
+    {
+      "slideIndex": 3,
+      "slideId": "why-now",
+      "component": "WhyNowSlide",
+      "title": "Edge compute unlocks institutional analytics with zero server costs.",
+      "subtitle": "The convergence of privacy demands and on-device neural engines makes Wick the inevitable next step in trading infrastructure.",
+      "sections": [
+        {
+          "icon": "HardDrive",
+          "heading": "The Catalyst",
+          "description": "Traders now treat trading like a business and demand data sovereignty. Cloud-synced journals expose proprietary alpha to third parties."
+        },
+        {
+          "icon": "Cpu",
+          "heading": "Edge Compute is Ready",
+          "description": "For the first time, mobile devices have the neural engines required to run complex behavioral AI locally. Zero cloud latency, zero server costs."
+        },
+        {
+          "icon": "TrendingUp",
+          "heading": "Retail Institutionalization",
+          "description": "Retail traders demand institutional-grade analytics but refuse the clunky, desktop-era UX of legacy tools."
+        }
+      ]
+    },
+    {
+      "slideIndex": 4,
+      "slideId": "market",
+      "component": "MarketSlide",
+      "title": "Market Size & Projections",
+      "subtitle": "Zero privacy-native competitors in a massive market with accelerating distrust of cloud platforms.",
+      "marketSizing": {
+        "tiers": [
+          { "label": "TAM", "value": "560M Traders" },
+          { "label": "SAM", "value": "65M Operators" },
+          { "label": "SOM", "value": "1.5M Target" }
+        ]
+      },
+      "revenueProjections": {
+        "icon": "Target",
+        "heading": "Revenue Projections",
+        "pricePoint": "$99/year",
+        "rows": [
+          {
+            "label": "0.1% SAM Penetration",
+            "detail": "65,000 Operators",
+            "value": "$6.4M",
+            "metric": "ARR"
+          },
+          {
+            "label": "1.0% SAM Penetration",
+            "detail": "650,000 Operators",
+            "value": "$64.3M",
+            "metric": "ARR"
+          },
+          {
+            "label": "Target SOM Capture",
+            "detail": "1.5M Operators",
+            "value": "$148.5M",
+            "metric": "ARR",
+            "highlighted": true
+          }
+        ]
+      }
+    },
+    {
+      "slideIndex": 5,
+      "slideId": "competitive-takedown",
+      "component": "CompetitiveTakedownSlide",
+      "title": "Incumbents are treating trader history as a product to harvest.",
+      "subtitle": "Cloud-based competitors are built on an outdated, high-friction architecture.",
+      "table": {
+        "columns": ["Feature", "Wick (Us)", "TradeZella & TraderSync", "Spreadsheets"],
+        "rows": [
+          {
+            "feature": "Data Ownership",
+            "wick": "100% Local-First",
+            "competitors": "Cloud-Stored (Exposed)",
+            "spreadsheets": "Local"
+          },
+          {
+            "feature": "Logging Speed",
+            "wick": "Sub-5-Tap / 0-Tap",
+            "competitors": "Post-Session Manual",
+            "spreadsheets": "Highly Manual"
+          },
+          {
+            "feature": "Intelligence",
+            "wick": "Real-Time AI (Edge)",
+            "competitors": "Retroactive Only",
+            "spreadsheets": "None"
+          },
+          {
+            "feature": "Friction",
+            "wick": "Seamless iOS Native",
+            "competitors": "Clunky Web Apps",
+            "spreadsheets": "High Friction"
+          }
+        ]
+      },
+      "bottomLine": "Competitors like Edgewonk and TradeZella cannot pivot to match our privacy or real-time AI without entirely rebuilding their cloud-dependent architectures from scratch."
+    },
+    {
+      "slideIndex": 6,
+      "slideId": "competitive-matrix",
+      "component": "CompetitiveMatrixSlide",
+      "title": "Competitive Matrix",
+      "axes": {
+        "top": "Simplicity",
+        "bottom": "High Friction",
+        "left": "Cloud Dependent",
+        "right": "Local First"
+      },
+      "dataPoints": [
+        { "name": "Wick", "position": { "top": "25%", "left": "75%" }, "highlighted": true },
+        { "name": "TradeZella", "position": { "top": "30%", "left": "25%" }, "highlighted": false },
+        { "name": "TraderSync", "position": { "top": "45%", "left": "30%" }, "highlighted": false },
+        { "name": "Edgewonk", "position": { "top": "65%", "left": "20%" }, "highlighted": false },
+        { "name": "Spreadsheets", "position": { "top": "80%", "left": "80%" }, "highlighted": false }
+      ]
+    }
+  ]
+}
